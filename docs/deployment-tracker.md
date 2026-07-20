@@ -4,7 +4,7 @@
 
 - [x] Resource Groups
 - [x] Git Repository
-- [ ] Log Analytics Workspace
+- [x] Log Analytics Workspace
 - [ ] Storage Account
 - [ ] Key Vault
 - [ ] Virtual Network
