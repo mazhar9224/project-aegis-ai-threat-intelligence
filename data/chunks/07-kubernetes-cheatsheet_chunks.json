@@ -1,0 +1,51 @@
+[
+  {
+    "id": "07-kubernetes-cheatsheet-1",
+    "document": "07-kubernetes-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 1,
+    "text": "Overview\nKubernetes automates deployment, scaling, and operations of containerized applications\nacross a cluster of nodes. Understanding its control-plane/data-plane split and core API\nobjects is foundational to securing managed offerings like AKS, EKS, and GKE.\nControl Plane Components\nComponent\nRole\nAPI Server\nFront door for all cluster operations; authenticates and validates\nrequests\netcd\nDistributed key-value store holding all cluster state — highest-value\ntarget to protect\nScheduler\nAssigns pods to nodes based on resource requests, affinity, taints/\ntolerations\nController Manager\nRuns reconciliation loops (ReplicaSet, Node, Endpoint controllers)\ntoward desired state\nkubelet\nNode agent; ensures containers described in PodSpecs are running\nand healthy\nkube-proxy\nMaintains network rules enabling Service abstraction and load\nbalancing\nCore Workload Objects\nPod — smallest deployable unit; one or more co-located containers sharing network/\nstorage"
+  },
+  {
+    "id": "07-kubernetes-cheatsheet-2",
+    "document": "07-kubernetes-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 2,
+    "text": "kube-proxy\nMaintains network rules enabling Service abstraction and load\nbalancing\nCore Workload Objects\nPod — smallest deployable unit; one or more co-located containers sharing network/\nstorage\nDeployment — manages ReplicaSets for stateless apps; supports rolling updates and\nrollback\nStatefulSet — stable network identity and persistent storage per replica, for stateful\nworkloads\nC L O U D C H E AT S H E E T · C O N TA I N E R S\nKubernetes\nContainer orchestration architecture, workload objects, and security hardening\n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 1 of 4"
+  },
+  {
+    "id": "07-kubernetes-cheatsheet-3",
+    "document": "07-kubernetes-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 3,
+    "text": "DaemonSet — ensures one pod per node (log shippers, node-level security agents)\nJob / CronJob — run-to-completion and scheduled batch workloads\nService — stable virtual IP/DNS abstracting a dynamic set of pod endpoints (ClusterIP/\nNodePort/LoadBalancer)\nIngress — L7 HTTP(S) routing into the cluster, typically backed by an Ingress Controller\nSecurity Hardening Checklist\nRBAC — least-privilege Roles/ClusterRoles bound via RoleBindings; avoid cluster-admin\nfor workloads\nPod Security Standards — enforce baseline/restricted profiles (replaces deprecated\nPodSecurityPolicy)\nNetwork Policies — default-deny ingress/egress, explicitly allow required pod-to-pod\ntraffic\nSecrets management — avoid plain Secrets objects for high-value data; integrate\nexternal secret stores (Key Vault CSI driver)\nImage security — scan images in CI, enforce signed/trusted registries via admission\ncontrol\nAdmission Controllers — OPA Gatekeeper / Kyverno to enforce policy-as-code at\nadmission time"
+  },
+  {
+    "id": "07-kubernetes-cheatsheet-4",
+    "document": "07-kubernetes-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 4,
+    "text": "Image security — scan images in CI, enforce signed/trusted registries via admission\ncontrol\nAdmission Controllers — OPA Gatekeeper / Kyverno to enforce policy-as-code at\nadmission time\nWorkload identity — bind pod service accounts to cloud IAM roles instead of\nembedding credentials\nManaged Kubernetes Comparison\nService\nNotable Traits\nAKS (Azure)\nFree control plane; integrates with Entra ID RBAC, Azure Policy,\nDefender for Containers\nEKS (AWS)\nIAM Roles for Service Accounts (IRSA), tight VPC CNI integration\nGKE (GCP)\nAutopilot mode abstracts node management; strong default security\nposture\nkubectl Essentials\nCommand\nPurpose\nkubectl get pods -n ns\nList pods in a namespace\n• \n• \n• \n• \n• \n• \n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 2 of 4"
+  },
+  {
+    "id": "07-kubernetes-cheatsheet-5",
+    "document": "07-kubernetes-cheatsheet.pdf",
+    "page": 3,
+    "chunk": 5,
+    "text": "kubectl describe pod x\nInspect events, status, resource config\nkubectl logs -f pod\nStream container logs\nkubectl exec -it pod --\nsh\nInteractive shell into a container\nkubectl apply -f\nfile.yaml\nDeclarative create/update from manifest\nkubectl rollout undo\ndeploy/x\nRoll back a deployment\nCommon Pitfalls\nPitfall\nFix\nRunning workloads\nas root with no\nsecurity context\nSet runAsNonRoot, drop capabilities, enforce restricted Pod Security\nStandard\nSecrets stored\nunencrypted in etcd\nEnable encryption at rest for etcd; consider external secret stores\nNo resource\nrequests/limits set\nDefine requests/limits on every container to avoid noisy-neighbor\nand eviction issues\nFlat cluster network,\nno NetworkPolicy\nDefault-deny and explicitly allow required pod-to-pod communication\nCluster-admin bound\nto CI/CD service\naccount\nScope CI/CD RBAC tightly to the namespaces and verbs actually\nrequired\nInterview / Exam Quick Hits"
+  },
+  {
+    "id": "07-kubernetes-cheatsheet-6",
+    "document": "07-kubernetes-cheatsheet.pdf",
+    "page": 3,
+    "chunk": 6,
+    "text": "Cluster-admin bound\nto CI/CD service\naccount\nScope CI/CD RBAC tightly to the namespaces and verbs actually\nrequired\nInterview / Exam Quick Hits\netcd should be encrypted at rest and access restricted — it holds Secrets in plaintext\nby default\nLiveness probes restart unhealthy containers; readiness probes control traffic admission,\nnot restarts\nNamespaces provide logical isolation, not a hard security boundary — combine with\nNetworkPolicy + RBAC\nHPA scales pod replicas on metrics; VPA adjusts resource requests/limits; Cluster\nAutoscaler adds/removes nodes\n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 3 of 4"
+  },
+  {
+    "id": "07-kubernetes-cheatsheet-7",
+    "document": "07-kubernetes-cheatsheet.pdf",
+    "page": 4,
+    "chunk": 7,
+    "text": "Taints repel pods from a node; tolerations allow specific pods to be scheduled there\nanyway\n• \nMazhar Khan — Cloud Security Portfolio\nPage 4 of 4"
+  }
+]

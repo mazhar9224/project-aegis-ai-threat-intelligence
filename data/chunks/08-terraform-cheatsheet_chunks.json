@@ -1,0 +1,44 @@
+[
+  {
+    "id": "08-terraform-cheatsheet-1",
+    "document": "08-terraform-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 1,
+    "text": "Overview\nTerraform (HashiCorp) is a declarative IaC tool using HCL to define, plan, and apply\ninfrastructure across providers (AWS, Azure, GCP, Kubernetes, and hundreds more) with a\nconsistent workflow. State tracking makes it distinct from purely imperative scripting.\nCore Workflow\nCommand\nPurpose\nterraform init\nDownloads providers/modules, configures backend\nterraform plan\nComputes diff between desired config and current state — no\nchanges applied\nterraform apply\nExecutes the plan, creates/updates/destroys real resources\nterraform destroy\nTears down all resources tracked in state\nterraform validate\nChecks configuration syntax and internal consistency\nterraform fmt\nAuto-formats HCL to canonical style\nState Management\nRemote backend — store state in Azure Storage / S3 / Terraform Cloud, never commit\nto git\nState locking — prevents concurrent applies corrupting state (native in Azure Storage\n+ S3/DynamoDB combo)\nWorkspaces — isolate state per environment (dev/staging/prod) within one"
+  },
+  {
+    "id": "08-terraform-cheatsheet-2",
+    "document": "08-terraform-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 2,
+    "text": "to git\nState locking — prevents concurrent applies corrupting state (native in Azure Storage\n+ S3/DynamoDB combo)\nWorkspaces — isolate state per environment (dev/staging/prod) within one\nconfiguration\nterraform import — brings existing, manually-created resources under Terraform\nmanagement\nDrift detection — plan against real infra surfaces out-of-band manual changes\nC L O U D C H E AT S H E E T · I A C\nTerraform\nDeclarative infrastructure-as-code, state management, and multi-cloud provisioning\n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 1 of 3"
+  },
+  {
+    "id": "08-terraform-cheatsheet-3",
+    "document": "08-terraform-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 3,
+    "text": "Language Building Blocks\nBlock\nPurpose\nprovider\nConfigures the target platform (auth, region/subscription)\nresource\nDeclares a manageable infrastructure object\ndata\nReads existing infrastructure without managing its lifecycle\nvariable / output\nParameterize input and expose values for chaining modules\nmodule\nReusable, composable bundle of resources\nlocals\nNamed expressions for DRY configuration\nSecurity Best Practices\nNever hardcode secrets — pull from Key Vault/Secrets Manager via data sources at\nplan time\nLeast-privilege CI identity — the service principal/role running apply should be\nscoped tightly, with plan-only access on PRs\nState encryption — enable encryption at rest on the remote backend; state can\ncontain sensitive attributes\nPolicy as code — Sentinel (Terraform Cloud/Enterprise) or Open Policy Agent (OPA) /\nCheckov for pre-apply guardrails\nModule pinning — pin provider and module versions to avoid unreviewed drift on re-\ninit"
+  },
+  {
+    "id": "08-terraform-cheatsheet-4",
+    "document": "08-terraform-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 4,
+    "text": "Checkov for pre-apply guardrails\nModule pinning — pin provider and module versions to avoid unreviewed drift on re-\ninit\nPlan review gate — require human/automated review of the plan output before apply\nin CI/CD\nCI/CD Pattern\nPR opened → pipeline runs fmt , validate , plan , policy scan (Checkov/tfsec) → plan output posted\nas PR comment for review → on merge, pipeline runs apply using a scoped service principal with\nremote state locking to prevent concurrent runs.\nCommon Pitfalls\nPitfall\nFix\nAlways use a remote backend with locking and encryption at rest\n• \n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 2 of 3"
+  },
+  {
+    "id": "08-terraform-cheatsheet-5",
+    "document": "08-terraform-cheatsheet.pdf",
+    "page": 3,
+    "chunk": 5,
+    "text": "Local state file\ncommitted to git\nManual console\nchanges causing\ndrift\nEnforce IaC-only changes via policy; run scheduled drift-detection\nplans\nNo plan review\nbefore apply in CI/\nCD\nRequire plan output review/approval gate before merge-triggered\napply\nUnpinned provider/\nmodule versions\nPin versions with pessimistic constraints; review changelogs before\nbumping\nMonolithic single-\nstate configuration\nSplit by blast radius/lifecycle (network, platform, app) into separate\nstate files\nInterview / Exam Quick Hits\nterraform plan is read-only against the provider API; only apply mutates infrastructure\ncount and for_each both create multiple resource instances — for_each is preferred for\nstability when items can be added/removed from the middle of a set\nProvider version constraints use pessimistic operator ( ~> ) to allow patch updates\nwithout breaking changes\nterraform state mv refactors resource addresses without destroying/recreating\ninfrastructure"
+  },
+  {
+    "id": "08-terraform-cheatsheet-6",
+    "document": "08-terraform-cheatsheet.pdf",
+    "page": 3,
+    "chunk": 6,
+    "text": "without breaking changes\nterraform state mv refactors resource addresses without destroying/recreating\ninfrastructure\nRemote state output values can be consumed cross-configuration via \nterraform_remote_state data source\n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 3 of 3"
+  }
+]

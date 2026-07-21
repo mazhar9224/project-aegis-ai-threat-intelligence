@@ -1,0 +1,44 @@
+[
+  {
+    "id": "10-identity-governance-cheatsheet-1",
+    "document": "10-identity-governance-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 1,
+    "text": "Overview\nIdentity governance minimizes standing privileged access by combining Microsoft Entra\nID's directory and Conditional Access engine with Privileged Identity Management (PIM) for\ntime-bound role elevation — the foundation of a defensible just-in-time (JIT) access model\nfor both cloud admin and application-level privileges.\nEntra ID Foundations\nConcept\nDetails\nTenant\nDedicated, isolated directory instance — top-level identity boundary\nConditional Access\nPolicy engine evaluating signals (user, device, location, risk) to grant/\nblock/require MFA\nP1 vs P2 licensing\nP1: Conditional Access, group-based access; P2 adds PIM, Identity\nProtection, access reviews\nBreak-glass\naccounts\nCloud-only, excluded from Conditional Access, monitored, credentials\nsealed/offline\nIdentity Protection\nRisk-based sign-in/user risk scoring feeding Conditional Access risk\npolicies\nAccess Reviews\nPeriodic, owner-driven recertification of role/group membership\nPIM — Just-In-Time Privileged Access"
+  },
+  {
+    "id": "10-identity-governance-cheatsheet-2",
+    "document": "10-identity-governance-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 2,
+    "text": "Risk-based sign-in/user risk scoring feeding Conditional Access risk\npolicies\nAccess Reviews\nPeriodic, owner-driven recertification of role/group membership\nPIM — Just-In-Time Privileged Access\nEligible vs. Active assignment — eligible roles require activation; active roles are\nstanding (avoid for admin roles)\nActivation controls — require MFA, justification, ticket number, and/or approver sign-\noff before elevation\nTime-bound activation — role auto-expires after a defined window (e.g., 1–8 hours),\nforcing re-activation for continued use\nC L O U D C H E AT S H E E T · I D E N T I T Y\nIdentity Governance & JIT Access\nEntra ID, Privileged Identity Management, and just-in-time privileged access architecture\n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 1 of 3"
+  },
+  {
+    "id": "10-identity-governance-cheatsheet-3",
+    "document": "10-identity-governance-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 3,
+    "text": "PIM for Groups — extends JIT activation to group membership, cascading to any\nresource the group is assigned to\nAlerts — PIM flags roles activated too frequently, assigned outside PIM, or with stale\npermissions\nAccess Reviews for PIM roles — periodic recertification of who holds eligible\nassignments\nJIT Architecture Pattern (Cloud-Agnostic)\nRequest (user submits justification, often via ticket/portal) → Approval workflow (automated for low-\nrisk, human approver for high-risk roles) → Time-bound grant (PIM activation or a short-lived IAM role/\ncredential, e.g. via a Lambda/Function-based approval automation) → Automatic revocation at expiry\n→ Full audit trail of request, approval, and usage for compliance evidence.\nAWS/Cross-Cloud JIT Equivalents\nAWS IAM Identity Center + permission sets — time-limited session duration on\nassumed roles\nSTS AssumeRole with short session tokens — foundation for custom JIT approval\nautomation (e.g., Lambda-triggered)"
+  },
+  {
+    "id": "10-identity-governance-cheatsheet-4",
+    "document": "10-identity-governance-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 4,
+    "text": "assumed roles\nSTS AssumeRole with short session tokens — foundation for custom JIT approval\nautomation (e.g., Lambda-triggered)\nJust-in-time EC2 access — Systems Manager Session Manager removes standing SSH/\nRDP exposure entirely\nGCP — Privileged Access Manager (PAM) provides analogous time-bound, approval-\ngated role grants\nGovernance Best Practices\nDefault to zero standing access for privileged roles — everything eligible, nothing\npermanently active\nSeparate break-glass accounts from PIM entirely — they must work even if PIM/\nConditional Access is misconfigured\nEnforce MFA + Conditional Access as a prerequisite for any PIM activation, not just\ninitial sign-in\nRoute all activations through centralized logging (Entra sign-in/audit logs → Sentinel)\nfor anomaly detection\nPair PIM with access reviews on a recurring cadence to catch role sprawl and unused\neligibility\n• \n• \n• \n• \n• \n• \n• \n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 2 of 3"
+  },
+  {
+    "id": "10-identity-governance-cheatsheet-5",
+    "document": "10-identity-governance-cheatsheet.pdf",
+    "page": 3,
+    "chunk": 5,
+    "text": "Common Pitfalls\nPitfall\nFix\nPrivileged roles\nassigned as Active\nby default\nDefault every privileged role to Eligible; require PIM activation for use\nNo approval\nrequired for\nsensitive role\nactivation\nRequire approver and justification for Global Admin-tier and similar\nhigh-impact roles\nBreak-glass\naccounts subject to\nConditional Access\nExplicitly exclude break-glass accounts from CA policies; monitor for\nany sign-in\nPIM activation with\nno time limit tuning\nSet the shortest practical activation window per role sensitivity\nAccess reviews\nconfigured but never\nactioned\nAssign accountable reviewers and track completion; auto-remove on\nnon-response\nInterview / Exam Quick Hits\nPIM requires Entra ID P2 licensing — P1 alone does not include just-in-time role\nactivation\nEligible assignments show zero standing privilege in access reviews until explicitly\nactivated\nBreak-glass accounts should be excluded from Conditional Access to guarantee\nemergency access if policy misfires"
+  },
+  {
+    "id": "10-identity-governance-cheatsheet-6",
+    "document": "10-identity-governance-cheatsheet.pdf",
+    "page": 3,
+    "chunk": 6,
+    "text": "activated\nBreak-glass accounts should be excluded from Conditional Access to guarantee\nemergency access if policy misfires\nPIM activation approval can be multi-stage — different approvers for different\nsensitivity tiers of role\nCombine PIM with Conditional Access authentication context to require step-up\nauth only at the moment of privileged action\n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 3 of 3"
+  }
+]

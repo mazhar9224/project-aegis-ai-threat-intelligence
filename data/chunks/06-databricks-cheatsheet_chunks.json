@@ -1,0 +1,44 @@
+[
+  {
+    "id": "06-databricks-cheatsheet-1",
+    "document": "06-databricks-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 1,
+    "text": "Overview\nDatabricks is a managed Apache Spark-based lakehouse platform unifying data\nengineering, data science, and BI on top of open storage formats (Delta Lake). On Azure it\ndeploys into your subscription as Azure Databricks with native Entra ID and networking\nintegration.\nCore Concepts\nConcept\nDetails\nWorkspace\nControl-plane UI for notebooks, jobs, repos — data plane runs in your\nVNet\nCluster\nSet of VMs running Spark; interactive (all-purpose) or job clusters\n(ephemeral, cheaper)\nDelta Lake\nACID transaction layer over Parquet — time travel, schema\nenforcement, MERGE support\nUnity Catalog\nCentralized governance: catalog.schema.table namespace, fine-\ngrained access control, lineage\nDBFS / Volumes\nDistributed file storage abstraction; Volumes provide governed non-\ntabular file access\nDelta Live Tables\n(DLT)\nDeclarative pipeline framework with built-in data quality\nexpectations\nMedallion Architecture"
+  },
+  {
+    "id": "06-databricks-cheatsheet-2",
+    "document": "06-databricks-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 2,
+    "text": "tabular file access\nDelta Live Tables\n(DLT)\nDeclarative pipeline framework with built-in data quality\nexpectations\nMedallion Architecture\nBronze (raw ingested data, schema-on-read) → Silver (cleaned, validated, conformed schema,\ndeduplicated) → Gold (business-level aggregates, ready for BI/ML consumption). Each layer is a Delta\ntable enabling incremental, auditable transformation.\nC L O U D C H E AT S H E E T · D ATA P L AT F O R M\nDatabricks\nUnified lakehouse platform for data engineering, ML, and analytics on Spark\nMazhar Khan — Cloud Security Portfolio\nPage 1 of 3"
+  },
+  {
+    "id": "06-databricks-cheatsheet-3",
+    "document": "06-databricks-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 3,
+    "text": "Security & Governance\nUnity Catalog — table/column/row-level ACLs, tag-based access, cross-workspace data\nlineage\nVNet injection (Azure) — deploy clusters into your own subnets for NSG/firewall control\nSecret scopes — backed by Azure Key Vault; avoid hardcoding credentials in\nnotebooks\nCluster policies — enforce instance types, autotermination, and tag compliance for\ncost/security control\nPrivate Link — front-end (UI/API) and back-end (data plane to control plane) private\nconnectivity\nAudit logs — diagnostic logs stream to Log Analytics/Event Hub for compliance\nmonitoring\nPySpark Essentials\nOperation\nCode Pattern\nRead Delta table\nspark.read.format(\"delta\").load(path)\nWrite/merge\nDeltaTable.forPath(spark, path).merge(...)\nTime travel\nspark.read.option(\"versionAsOf\", 3).load(path)\nOptimize + Z-order\nOPTIMIZE table ZORDER BY (col)\nVacuum\nVACUUM table RETAIN 168 HOURS — reclaims stale files\nStructured\nStreaming\nreadStream.format(\"delta\")...writeStream.trigger(availableNow=True)"
+  },
+  {
+    "id": "06-databricks-cheatsheet-4",
+    "document": "06-databricks-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 4,
+    "text": "Optimize + Z-order\nOPTIMIZE table ZORDER BY (col)\nVacuum\nVACUUM table RETAIN 168 HOURS — reclaims stale files\nStructured\nStreaming\nreadStream.format(\"delta\")...writeStream.trigger(availableNow=True)\nCI/CD & MLOps Integration\nDatabricks Asset Bundles — YAML-based IaC for jobs/pipelines, deployed via CLI in CI/\nCD\nMLflow — native experiment tracking, model registry, and stage transitions (Staging →\nProduction)\nRepos — Git-backed notebooks for version control and PR-based review workflows\nWorkflows/Jobs API — orchestrate multi-task DAGs, integrate with ADF or external\nschedulers\n• \n• \n• \n• \n• \n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 2 of 3"
+  },
+  {
+    "id": "06-databricks-cheatsheet-5",
+    "document": "06-databricks-cheatsheet.pdf",
+    "page": 3,
+    "chunk": 5,
+    "text": "Common Pitfalls\nPitfall\nFix\nSmall files problem\ndegrading query\nperformance\nRun OPTIMIZE regularly; use auto-compaction and Z-ordering on filter\ncolumns\nAll-purpose clusters\nleft running idle\nEnforce autotermination via cluster policies; prefer job clusters for\nscheduled work\nNotebooks with\nhardcoded\ncredentials\nUse secret scopes backed by Key Vault; never inline connection\nstrings\nNo lineage/\ngovernance across\nworkspaces\nAdopt Unity Catalog early; retrofitting from Hive metastore later is\ncostly\nSkipping VACUUM\ncausing storage\nbloat\nSchedule VACUUM with a sensible retention window (min 7 days for\ntime-travel safety)\nInterview / Exam Quick Hits\nDelta Lake provides ACID guarantees that raw Parquet on a data lake does not\nJob clusters are cheaper than all-purpose clusters because they terminate\nautomatically after the job\nUnity Catalog centralizes governance across workspaces, replacing legacy per-\nworkspace Hive metastore"
+  },
+  {
+    "id": "06-databricks-cheatsheet-6",
+    "document": "06-databricks-cheatsheet.pdf",
+    "page": 3,
+    "chunk": 6,
+    "text": "automatically after the job\nUnity Catalog centralizes governance across workspaces, replacing legacy per-\nworkspace Hive metastore\nPhoton is Databricks' native vectorized query engine accelerating SQL and\nDataFrame workloads\nAuto-scaling clusters balance cost vs. performance but add startup latency — job\nclusters mitigate with pools\n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 3 of 3"
+  }
+]

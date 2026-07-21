@@ -1,0 +1,37 @@
+[
+  {
+    "id": "04-microsoft-defender-cheatsheet-1",
+    "document": "04-microsoft-defender-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 1,
+    "text": "Overview\nThe Microsoft Defender family delivers Extended Detection and Response (XDR) across the\nmodern attack surface. Individual products correlate signal into the Microsoft Defender\nXDR portal for unified incident and alert triage, complementing Sentinel's broader SIEM/\nSOAR role.\nProduct Family\nProduct\nProtects\nDefender for\nEndpoint\nWindows/Linux/macOS/mobile — EDR, vulnerability management,\nattack surface reduction\nDefender for\nIdentity\nOn-prem AD — detects lateral movement, DCSync, Kerberoasting via\ndomain controller sensors\nDefender for Office\n365\nEmail/collaboration — phishing, malware, Safe Links/Attachments,\ncampaign views\nDefender for Cloud\nApps\nSaaS/CASB — shadow IT discovery, session/access policies, OAuth\napp governance\nDefender for Cloud\nMulti-cloud CSPM + CWPP — posture management and workload\nprotection (Azure/AWS/GCP)\nDefender\nVulnerability\nManagement\nContinuous discovery, risk-based prioritization, remediation tracking\nDefender for Cloud — CSPM/CWPP"
+  },
+  {
+    "id": "04-microsoft-defender-cheatsheet-2",
+    "document": "04-microsoft-defender-cheatsheet.pdf",
+    "page": 1,
+    "chunk": 2,
+    "text": "protection (Azure/AWS/GCP)\nDefender\nVulnerability\nManagement\nContinuous discovery, risk-based prioritization, remediation tracking\nDefender for Cloud — CSPM/CWPP\nSecure Score — weighted, actionable posture metric across recommendations\nRegulatory compliance dashboard — maps controls to CIS, PCI-DSS, ISO 27001, NIST\nWorkload protection plans — per-resource-type (servers, storage, SQL, containers,\nKey Vault, App Service)\nC L O U D C H E AT S H E E T · S E C U R I T Y\nMicrosoft Defender Suite\nXDR portfolio spanning endpoints, identity, email, cloud apps, and cloud workloads\n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 1 of 3"
+  },
+  {
+    "id": "04-microsoft-defender-cheatsheet-3",
+    "document": "04-microsoft-defender-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 3,
+    "text": "Agentless scanning — VM disk and container image scanning without in-guest agents\nMulti-cloud connectors — onboard AWS (via CloudFormation) and GCP (via Terraform/\nconsole) for unified posture\nAttack path analysis — graph-based visualization of exploitable chains toward crown-\njewel assets\nDefender for Endpoint — Key Concepts\nDevice groups & tags drive RBAC and automation scoping\nAttack Surface Reduction (ASR) rules block common malware/exploit techniques\n(e.g., Office macro abuse)\nAutomated Investigation & Remediation (AIR) auto-triages and remediates low-\ncomplexity alerts\nLive Response gives responders a remote shell for forensic collection and containment\nThreat & Vulnerability Management ties CVE exposure directly to device inventory\nUnified Incident Correlation\nDefender XDR automatically correlates alerts across endpoint, identity, email, and cloud app signals into\na single incident with a shared attack story — reducing alert fatigue versus triaging each product"
+  },
+  {
+    "id": "04-microsoft-defender-cheatsheet-4",
+    "document": "04-microsoft-defender-cheatsheet.pdf",
+    "page": 2,
+    "chunk": 4,
+    "text": "a single incident with a shared attack story — reducing alert fatigue versus triaging each product\nconsole independently. Sentinel can further ingest these as high-fidelity incidents via the Microsoft\nDefender XDR connector.\nCommon Pitfalls\nPitfall\nFix\nRunning ASR rules\nstraight to block\nmode\nPilot in audit mode first, review impacted users/apps, then enforce\nIgnoring Secure\nScore\nrecommendations as\nnoise\nTriage by weighted risk reduction, not raw count; a few items often\nmove the score most\nDefender for Cloud\nenabled without\nworkload plans\nFree tier is CSPM-only; enable paid plans for actual threat detection\n(CWPP)\nUse unified Defender XDR portal for cross-signal incident correlation\n• \n• \n• \n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 2 of 3"
+  },
+  {
+    "id": "04-microsoft-defender-cheatsheet-5",
+    "document": "04-microsoft-defender-cheatsheet.pdf",
+    "page": 3,
+    "chunk": 5,
+    "text": "Treating each\nDefender console as\nindependent\nNo automated\nresponse to high-\nconfidence alerts\nWire AIR / Logic Apps playbooks for auto-containment on high-fidelity\ndetections\nInterview / Exam Quick Hits\nDefender for Cloud Free tier = CSPM recommendations only; plans (paid) add CWPP\nthreat detection\nDefender for Identity sensors run on domain controllers/AD FS servers, not\nendpoints\nSecure Score recommendations are weighted by potential risk reduction, not simple\ncount\nASR rules can run in audit mode before enforcement to validate false-positive impact\nDefender for Cloud Apps enforces real-time control via reverse proxy (Conditional\nAccess App Control)\n• \n• \n• \n• \n• \nMazhar Khan — Cloud Security Portfolio\nPage 3 of 3"
+  }
+]
