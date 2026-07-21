@@ -5,7 +5,7 @@
 - [x] Resource Groups
 - [x] Git Repository
 - [x] Log Analytics Workspace
-- [ ] Storage Account
+- [x] Storage Account
 - [ ] Key Vault
 - [ ] Virtual Network
 - [ ] Azure AI Foundry
